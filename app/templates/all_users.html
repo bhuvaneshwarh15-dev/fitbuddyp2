@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>FitBuddy — Admin</title><link rel="stylesheet" href="/static/styles.css"></head>
+<body>
+<main class="container">
+  <header class="topbar"><div><div class="brand">FITBUDDY</div><h1>Admin dashboard</h1></div><a href="/">Home</a></header>
+  {% if not users %}<section class="card"><p>No users yet.</p></section>{% endif %}
+  {% for user in users %}
+  <section class="card admin-user">
+    <div class="profile compact"><div><span>User ID</span><strong>{{ user.user_id }}</strong></div><div><span>Name</span><strong>{{ user.username }}</strong></div><div><span>Age</span><strong>{{ user.age }}</strong></div><div><span>Weight</span><strong>{{ user.weight }} kg</strong></div><div><span>Goal</span><strong>{{ user.goal|title }}</strong></div><div><span>Intensity</span><strong>{{ user.intensity|title }}</strong></div></div>
+    <div class="plan-columns"><div><h3>Original plan</h3><pre class="plan">{{ user.original_plan }}</pre></div><div><h3>Updated plan</h3><pre class="plan">{{ user.updated_plan or 'No feedback update yet.' }}</pre></div></div>
+    {% if user.feedback %}<p><strong>Latest feedback:</strong> {{ user.feedback }}</p>{% endif %}
+    <form method="post" action="/delete-user/{{ user.user_id }}" onsubmit="return confirm('Delete this user and their plans?')"><button class="danger" type="submit">Delete user</button></form>
+  </section>
+  {% endfor %}
+</main>
+</body>
+</html>

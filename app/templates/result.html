@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FitBuddy — Your Plan</title><link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+<main class="container">
+  <header class="topbar"><div class="brand">FITBUDDY</div><a href="/">New plan</a></header>
+  {% if message %}<div class="alert success">{{ message }}</div>{% endif %}
+  <section class="card profile">
+    <div><span>Name</span><strong>{{ user.username }}</strong></div><div><span>User ID</span><strong>{{ user.user_id }}</strong></div>
+    <div><span>Age</span><strong>{{ user.age }}</strong></div><div><span>Weight</span><strong>{{ user.weight }} kg</strong></div>
+    <div><span>Goal</span><strong>{{ user.goal|title }}</strong></div><div><span>Intensity</span><strong>{{ user.intensity|title }}</strong></div>
+  </section>
+  <section class="card">
+    <h2>7-Day Workout Plan</h2>
+    <pre class="plan">{{ workout_plan }}</pre>
+  </section>
+  <section class="card tip"><h2>Nutrition / Recovery Tip</h2><p>{{ nutrition_tip }}</p></section>
+  <section class="card">
+    <h2>Refine your plan</h2>
+    <p class="muted">Tell FitBuddy what you want changed, such as more cardio or more recovery days.</p>
+    <form method="post" action="/submit-feedback">
+      <input type="hidden" name="user_id" value="{{ user.user_id }}">
+      <textarea name="feedback" rows="5" maxlength="1000" required placeholder="Example: Reduce the lower-body volume and add one gentle mobility day."></textarea>
+      <button class="primary" type="submit">Update Plan</button>
+    </form>
+  </section>
+</main>
+</body>
+</html>
