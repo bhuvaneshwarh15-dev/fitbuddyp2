@@ -1,0 +1,2 @@
+# fitbuddy
+ai fitness
